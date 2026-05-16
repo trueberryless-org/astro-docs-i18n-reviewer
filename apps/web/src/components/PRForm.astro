@@ -1,0 +1,176 @@
+---
+
+---
+
+<div class="form-card">
+    <h2>Lunaria Translation Reviewer</h2>
+
+    <div class="supported-langs">
+        <span class="langs-label">Supported languages:</span>
+        <span class="lang-chip">🇸🇦 Arabic</span>
+        <span class="lang-chip">🇩🇪 German</span>
+        <span class="lang-chip">🇫🇷 French</span>
+        <span class="lang-chip">🇮🇹 Italian</span>
+        <span class="lang-chip">🇯🇵 Japanese</span>
+        <span class="lang-chip">🇰🇷 Korean</span>
+        <span class="lang-chip">🇧🇷 Portuguese (BR)</span>
+        <span class="lang-chip">🇷🇺 Russian</span>
+        <span class="lang-chip">🇨🇳 Simplified Chinese</span>
+        <span class="lang-chip">🇹🇼 Traditional Chinese</span>
+    </div>
+
+    <div class="input-group">
+        <label for="prInput">GitHub Pull Request URL or Number</label>
+        <input
+            type="text"
+            id="prInput"
+            placeholder="e.g., https://github.com/withastro/docs/pull/1234 or #1234"
+            autocomplete="off"
+            data-1p-ignore
+            data-lpignore="true"
+            data-bwignore
+            data-form-type="other"
+        />
+    </div>
+
+    <div class="input-group">
+        <label for="tokenInput">
+            Personal Access Token (PAT)
+            <a
+                href="https://github.com/settings/tokens/new?description=Astro+i18n+Reviewer&scopes=public_repo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="token-link">Generate one ↗</a
+            >
+        </label>
+        <input
+            type="password"
+            id="tokenInput"
+            placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+            autocomplete="off"
+            data-1p-ignore
+            data-lpignore="true"
+            data-bwignore
+            data-form-type="other"
+        />
+        <span class="token-hint"
+            >Classic token · <code>public_repo</code> scope</span
+        >
+    </div>
+
+    <button id="analyzeBtn">Analyze Pull Request</button>
+</div>
+
+<style>
+    .form-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .supported-langs {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.375rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .langs-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-right: 0.25rem;
+    }
+
+    .lang-chip {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 99px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        white-space: nowrap;
+    }
+
+    .input-group {
+        margin-bottom: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    label {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .token-link {
+        font-size: 0.75rem;
+        color: var(--accent);
+        text-decoration: none;
+        opacity: 0.85;
+    }
+
+    .token-link:hover {
+        opacity: 1;
+        text-decoration: underline;
+    }
+
+    .token-hint {
+        font-size: 0.72rem;
+        color: var(--text-secondary);
+        opacity: 0.7;
+    }
+
+    .token-hint code {
+        font-family: monospace;
+        background: var(--bg-card);
+        padding: 0.05rem 0.25rem;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        border: 1px solid var(--border-color);
+    }
+
+    input {
+        background: var(--bg-main);
+        border: 1px solid var(--border-color);
+        padding: 0.75rem;
+        border-radius: 6px;
+        color: var(--text-primary);
+        font-size: 1rem;
+        width: 100%;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+
+    button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.2s;
+    }
+
+    button:hover {
+        background: var(--accent-hover);
+    }
+</style>

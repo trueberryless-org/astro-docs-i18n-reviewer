@@ -1,0 +1,32 @@
+{
+  "name": "@astro-docs-i18n-reviewer/web",
+  "version": "0.1.0",
+  "description": "Web frontend for the Astro Docs i18n translation reviewer",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer.git",
+    "directory": "apps/web"
+  },
+  "homepage": "https://astro-docs-i18n-reviewer.trueberryless.org",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer/issues"
+  },
+  "author": "trueberryless-org",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astro-docs-i18n-reviewer/core": "workspace:*",
+    "@astrojs/check": "^0.9.9",
+    "astro": "^6.3.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

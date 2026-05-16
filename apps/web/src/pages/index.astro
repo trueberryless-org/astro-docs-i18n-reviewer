@@ -1,0 +1,352 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PRForm from "../components/PRForm.astro";
+import ReportMarkdown from "../components/ReportMarkdown.astro";
+---
+
+<Layout title="Astro Docs Translation Reviewer">
+    <main>
+        <header class="main-header">
+            <h1>Astro Docs Translation Hub</h1>
+            <p>Clean, automated reviews for global documentation</p>
+        </header>
+
+        <PRForm />
+        <div id="reportPreview" class="hidden">
+            <ReportMarkdown />
+        </div>
+    </main>
+</Layout>
+
+<script>
+    import {
+        runTranslationReview,
+        postGitHubReview,
+    } from "@astro-docs-i18n-reviewer/core";
+
+    const analyzeBtn = document.getElementById(
+        "analyzeBtn",
+    ) as HTMLButtonElement;
+    const prInput = document.getElementById("prInput") as HTMLInputElement;
+    const tokenInput = document.getElementById(
+        "tokenInput",
+    ) as HTMLInputElement;
+    const reportPreview = document.getElementById(
+        "reportPreview",
+    ) as HTMLDivElement;
+    const reportMeta = document.getElementById("reportMeta") as HTMLElement;
+    const reportStats = document.getElementById("reportStats") as HTMLElement;
+    const suggestionsList = document.getElementById(
+        "suggestionsList",
+    ) as HTMLElement;
+    const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
+    const commentBtn = document.getElementById(
+        "commentBtn",
+    ) as HTMLButtonElement;
+
+    let reviewData: any = null;
+    let currentToken = "";
+    let currentPR = "";
+
+    function escapeHtml(str: string): string {
+        return str
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    function renderReport(report: any) {
+        const { prNumber, author, fileReports, inlineComments } = report;
+
+        reportMeta.textContent = `PR #${prNumber} · @${author}`;
+
+        const filesWithIssues = fileReports.filter(
+            (f: any) => f.status === "failed",
+        ).length;
+        reportStats.innerHTML = `
+            <span class="stat"><strong>${fileReports.length}</strong> files reviewed</span>
+            <span class="stat-sep">·</span>
+            <span class="stat"><strong>${filesWithIssues}</strong> with suggestions</span>
+            <span class="stat-sep">·</span>
+            <span class="stat"><strong>${inlineComments.length}</strong> total suggestions</span>
+        `;
+
+        if (fileReports.length === 0) {
+            const { unsupportedLocales } = report;
+            if (unsupportedLocales.length > 0) {
+                suggestionsList.innerHTML = `
+                    <div class="empty-state">
+                        <p>Language <strong>${unsupportedLocales.map((l: string) => escapeHtml(`\`${l}\``)).join(", ")}</strong> ${unsupportedLocales.length === 1 ? "is" : "are"} not supported yet.</p>
+                        <p class="empty-hint">Supported locales: <code>ar</code> <code>de</code> <code>fr</code> <code>it</code> <code>ja</code> <code>ko</code> <code>pt-br</code> <code>ru</code> <code>zh-cn</code> <code>zh-tw</code></p>
+                    </div>`;
+            } else {
+                suggestionsList.innerHTML = `
+                    <div class="empty-state">
+                        <p>No translation files found in this PR.</p>
+                        <p class="empty-hint">Make sure the PR contains <code>.md</code> or <code>.mdx</code> files outside the <code>en/</code> directory.</p>
+                    </div>`;
+            }
+            return;
+        }
+
+        suggestionsList.innerHTML = fileReports
+            .map((file: any) => {
+                const isPassed = file.status === "passed";
+                const commentsHtml = [...file.comments]
+                    .sort((a: any, b: any) => a.line - b.line)
+                    .map(
+                        (c: any) => `
+                    <div class="comment-item">
+                        <span class="line-badge">Line ${c.line}</span>
+                        <span class="comment-body">${escapeHtml(c.body)}</span>
+                    </div>`,
+                    )
+                    .join("");
+
+                return `
+                <div class="file-card ${isPassed ? "passed" : "failed"}">
+                    <div class="file-header">
+                        <span class="file-icon">${isPassed ? "✅" : "⚠️"}</span>
+                        <code class="file-path">${escapeHtml(file.filename)}</code>
+                        ${
+                            isPassed
+                                ? '<span class="badge badge-pass">No issues</span>'
+                                : `<span class="badge badge-fail">${file.comments.length} suggestion${file.comments.length !== 1 ? "s" : ""}</span>`
+                        }
+                    </div>
+                    ${commentsHtml ? `<div class="comments-list">${commentsHtml}</div>` : ""}
+                </div>`;
+            })
+            .join("");
+    }
+
+    function generateMarkdown(report: any): string {
+        const lines: string[] = [
+            `## Translation Review — PR #${report.prNumber}`,
+            ``,
+            `**Author:** @${report.author}  `,
+            `**Files reviewed:** ${report.fileReports.length}  `,
+            `**Total suggestions:** ${report.inlineComments.length}`,
+            ``,
+            `---`,
+            ``,
+        ];
+        for (const file of report.fileReports) {
+            if (file.status === "passed") {
+                lines.push(`### ✅ \`${file.filename}\``, `No issues found.`, ``);
+            } else {
+                lines.push(
+                    `### ⚠️ \`${file.filename}\` — ${file.comments.length} suggestion${file.comments.length !== 1 ? "s" : ""}`,
+                );
+                for (const c of file.comments) {
+                    lines.push(``, `**Line ${c.line}:** ${c.body}`);
+                }
+                lines.push(``);
+            }
+        }
+        return lines.join("\n");
+    }
+
+    analyzeBtn?.addEventListener("click", async () => {
+        const prValue = prInput?.value;
+        const tokenValue = tokenInput?.value;
+
+        if (!prValue || !tokenValue) {
+            alert("Please fill out all input parameters.");
+            return;
+        }
+
+        analyzeBtn.disabled = true;
+        analyzeBtn.innerText = "Reviewing...";
+
+        try {
+            currentPR = prValue;
+            currentToken = tokenValue;
+
+            const report = await runTranslationReview({
+                prUrlOrNumber: prValue,
+                githubToken: tokenValue,
+            });
+
+            reviewData = report;
+            renderReport(report);
+            reportPreview.classList.remove("hidden");
+        } catch (err: any) {
+            alert(`Execution Error: ${err.message}`);
+        } finally {
+            analyzeBtn.disabled = false;
+            analyzeBtn.innerText = "Analyze Pull Request";
+        }
+    });
+
+    copyBtn?.addEventListener("click", () => {
+        if (!reviewData) return;
+        const md = generateMarkdown(reviewData);
+        navigator.clipboard.writeText(md).then(() => {
+            copyBtn.innerText = "Copied!";
+            setTimeout(() => (copyBtn.innerText = "Copy Markdown"), 2000);
+        });
+    });
+
+    commentBtn?.addEventListener("click", async () => {
+        if (!reviewData || !currentPR || !currentToken) return;
+
+        commentBtn.disabled = true;
+        commentBtn.innerText = "Submitting Review...";
+
+        try {
+            await postGitHubReview(
+                {
+                    prUrlOrNumber: currentPR,
+                    githubToken: currentToken,
+                },
+                reviewData.reviewBody,
+                reviewData.inlineComments,
+            );
+            alert(
+                "Review posted successfully as individual localized code threads!",
+            );
+        } catch (err: any) {
+            alert(`API Error: ${err.message}`);
+        } finally {
+            commentBtn.disabled = false;
+            commentBtn.innerText = "Submit GitHub Review";
+        }
+    });
+</script>
+
+<style>
+    .hidden {
+        display: none !important;
+    }
+
+    .main-header {
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(to right, #ff7e33, #e0651b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
+    /* File cards rendered by JS */
+    :global(.file-card) {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    :global(.file-card.passed) {
+        border-color: #065f46;
+    }
+
+    :global(.file-card.failed) {
+        border-color: #78350f;
+    }
+
+    :global(.file-header) {
+        display: flex;
+        align-items: center;
+        gap: 0.625rem;
+        padding: 0.625rem 0.875rem;
+        background: var(--bg-main);
+        flex-wrap: wrap;
+    }
+
+    :global(.file-icon) {
+        font-size: 0.9rem;
+    }
+
+    :global(.file-path) {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        flex: 1;
+        word-break: break-all;
+    }
+
+    :global(.badge) {
+        font-size: 0.7rem;
+        font-weight: 600;
+        padding: 0.15rem 0.5rem;
+        border-radius: 99px;
+        white-space: nowrap;
+    }
+
+    :global(.badge-pass) {
+        background: #065f46;
+        color: #6ee7b7;
+    }
+
+    :global(.badge-fail) {
+        background: #78350f;
+        color: #fcd34d;
+    }
+
+    :global(.comments-list) {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    :global(.comment-item) {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.625rem 0.875rem;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.85rem;
+        align-items: flex-start;
+    }
+
+    :global(.line-badge) {
+        font-family: monospace;
+        font-size: 0.75rem;
+        background: var(--bg-card);
+        color: var(--text-secondary);
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    :global(.comment-body) {
+        color: var(--text-primary);
+        white-space: pre-wrap;
+        line-height: 1.5;
+    }
+
+    :global(.empty-state) {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    :global(.empty-state p) {
+        margin: 0 0 0.4rem;
+    }
+
+    :global(.empty-hint) {
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+
+    :global(.empty-hint code) {
+        font-family: monospace;
+        background: var(--bg-card);
+        padding: 0.1rem 0.3rem;
+        border-radius: 3px;
+        margin: 0 0.1rem;
+    }
+</style>

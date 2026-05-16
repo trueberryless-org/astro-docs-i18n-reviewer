@@ -1,0 +1,54 @@
+name: Feature Request
+description: Suggest an idea or improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got an idea to make the reviewer better? We'd love to hear it!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: A clear description of the pain point or gap in functionality
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you like this to work?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this affect?
+      multiple: true
+      options:
+        - Language rules (new or improved patterns)
+        - New locale support
+        - Heading structure comparison
+        - Untranslated content detection
+        - GitHub comment / suggestion output
+        - Web UI
+        - CI / developer tooling
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you thought about?
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Links to relevant PRs, screenshots, etc.

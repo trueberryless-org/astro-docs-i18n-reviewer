@@ -1,0 +1,108 @@
+---
+
+---
+
+<div id="reportContainer" class="report-card">
+    <div class="report-header">
+        <div>
+            <h3>Analysis Report</h3>
+            <p id="reportMeta" class="report-meta"></p>
+        </div>
+        <div class="actions">
+            <button id="copyBtn" class="sec-btn">Copy Markdown</button>
+            <button id="commentBtn" class="pri-btn">Submit GitHub Review</button>
+        </div>
+    </div>
+
+    <div id="reportStats" class="stats-bar"></div>
+
+    <div id="suggestionsList" class="suggestions-list"></div>
+</div>
+
+<style>
+    .report-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.25rem;
+    }
+
+    .report-meta {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin: 0;
+    }
+
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+
+    .stats-bar {
+        display: flex;
+        gap: 1.5rem;
+        padding: 0.75rem 1rem;
+        background: var(--bg-main);
+        border-radius: 8px;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        flex-wrap: wrap;
+    }
+
+    .stat strong {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .stat-sep {
+        color: var(--border-color);
+    }
+
+    .suggestions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .pri-btn {
+        background: var(--success);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .sec-btn {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    .sec-btn:hover {
+        background: var(--bg-card);
+    }
+</style>

@@ -1,0 +1,37 @@
+{
+  "name": "@astro-docs-i18n-reviewer/core",
+  "version": "0.1.0",
+  "description": "Core analysis engine for the Astro Docs i18n translation reviewer",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://astro-docs-i18n-reviewer.trueberryless.org",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer/issues"
+  },
+  "author": "trueberryless-org",
+  "license": "MIT",
+  "keywords": [
+    "astro",
+    "i18n",
+    "translation",
+    "reviewer",
+    "localization",
+    "github",
+    "pr-review"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@octokit/core": "^6.1.3"
+  }
+}

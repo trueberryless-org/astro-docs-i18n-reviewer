@@ -1,0 +1,35 @@
+{
+  "name": "astro-docs-i18n-reviewer",
+  "version": "0.1.0",
+  "description": "Automated i18n translation reviewer for Astro Docs pull requests",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer.git"
+  },
+  "homepage": "https://astro-docs-i18n-reviewer.trueberryless.org",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/astro-docs-i18n-reviewer/issues"
+  },
+  "author": "trueberryless-org",
+  "license": "MIT",
+  "keywords": [
+    "astro",
+    "i18n",
+    "translation",
+    "reviewer",
+    "github",
+    "pr-review",
+    "localization",
+    "docs"
+  ],
+  "scripts": {
+    "build": "pnpm --filter '@astro-docs-i18n-reviewer/*' build",
+    "dev": "pnpm --filter @astro-docs-i18n-reviewer/web dev"
+  },
+  "packageManager": "pnpm@11.1.2",
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "typescript": "^6.0.3"
+  }
+}
