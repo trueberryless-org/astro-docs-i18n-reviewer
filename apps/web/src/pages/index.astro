@@ -84,7 +84,7 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
                 suggestionsList.innerHTML = `
                     <div class="empty-state">
                         <p>No translation files found in this PR.</p>
-                        <p class="empty-hint">Make sure the PR contains <code>.md</code> or <code>.mdx</code> files outside the <code>en/</code> directory.</p>
+                        <p class="empty-hint">Make sure the PR contains <code>.md</code> or <code>.mdx</code> files outside the <code>en/</code> directory (for <code>withastro/docs</code>) or under a locale subfolder (for <code>withastro/starlight</code>).</p>
                     </div>`;
             }
             return;

@@ -8,8 +8,7 @@ import {
 import {
   LANGUAGES,
   commonPatterns,
-  extractLocaleFromPath,
-  guessOriginalPath,
+  getRepoConfig,
 } from "./rules/index.js";
 import type {
   ReviewOptions,
@@ -356,6 +355,7 @@ export async function runTranslationReview(
 ): Promise<TranslationReport> {
   const details = parsePRUrlOrNumber(options.prUrlOrNumber);
   const octokit = new Octokit({ auth: options.githubToken });
+  const repoConfig = getRepoConfig(details.owner, details.repo);
 
   const { pr, files } = await fetchPRData(octokit, details);
   const allInlineComments: InlineComment[] = [];
@@ -369,7 +369,7 @@ export async function runTranslationReview(
       continue;
     }
 
-    const locale = extractLocaleFromPath(file.filename);
+    const locale = repoConfig.extractLocale(file.filename);
     if (locale === "en") continue;
 
     // Track files whose locale we don't have rules for, then skip them
@@ -397,7 +397,7 @@ export async function runTranslationReview(
       octokit,
       details.owner,
       details.repo,
-      guessOriginalPath(file.filename),
+      repoConfig.toOriginalPath(file.filename),
       pr.base.sha,
     );
 

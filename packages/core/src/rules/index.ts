@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule, RepoConfig } from "../types.js";
 export { commonPatterns } from "./common.js";
 import { deRules } from "./de.js";
 import { frRules } from "./fr.js";
@@ -24,18 +24,41 @@ export const LANGUAGES: Record<string, LanguageRule> = {
   ko: koRules,
 };
 
+// Matches a locale segment inside a content/docs path, e.g. /content/docs/de/
+const LOCALE_SEGMENT_RE = /\/content\/docs\/([a-z]{2,3}(?:-[a-z]+)?)\//;
+
+// withastro/docs — translated files live at src/content/docs/{locale}/...
+//                  English files live at src/content/docs/en/...
+const docsRepoConfig: RepoConfig = {
+  extractLocale(path: string): string {
+    return path.match(LOCALE_SEGMENT_RE)?.[1] ?? "en";
+  },
+  toOriginalPath(path: string): string {
+    return path.replace(LOCALE_SEGMENT_RE, "/content/docs/en/");
+  },
+};
+
+// withastro/starlight — translated files live at docs/src/content/docs/{locale}/...
+//                       English files live at docs/src/content/docs/... (no locale segment)
+const starlightRepoConfig: RepoConfig = {
+  extractLocale(path: string): string {
+    return path.match(LOCALE_SEGMENT_RE)?.[1] ?? "en";
+  },
+  toOriginalPath(path: string): string {
+    return path.replace(LOCALE_SEGMENT_RE, "/content/docs/");
+  },
+};
+
+export function getRepoConfig(owner: string, repo: string): RepoConfig {
+  if (owner === "withastro" && repo === "starlight") return starlightRepoConfig;
+  return docsRepoConfig;
+}
+
+// Kept for backward compatibility with any external callers.
 export function extractLocaleFromPath(path: string): string {
-  const parts = path.split("/");
-  const docsIndex = parts.indexOf("docs");
-  if (docsIndex !== -1 && parts[docsIndex + 1]) {
-    return parts[docsIndex + 1];
-  }
-  return "en";
+  return docsRepoConfig.extractLocale(path);
 }
 
 export function guessOriginalPath(translatedPath: string): string {
-  return translatedPath.replace(
-    /\/docs\/([a-z]{2,3})(-[a-z]+)?\//,
-    "/docs/en/",
-  );
+  return docsRepoConfig.toOriginalPath(translatedPath);
 }

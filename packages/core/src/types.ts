@@ -41,3 +41,8 @@ export interface LanguageRule {
   guideUrl?: string;
   patterns: RulePattern[];
 }
+
+export interface RepoConfig {
+  extractLocale: (path: string) => string;
+  toOriginalPath: (path: string) => string;
+}
