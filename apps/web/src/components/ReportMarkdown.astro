@@ -9,8 +9,7 @@
             <p id="reportMeta" class="report-meta"></p>
         </div>
         <div class="actions">
-            <button id="copyBtn" class="sec-btn">Copy Markdown</button>
-            <button id="commentBtn" class="pri-btn">Submit GitHub Review</button>
+            <button id="copyBtn" class="sec-btn">Copy Report</button>
         </div>
     </div>
 
@@ -60,7 +59,8 @@
         display: flex;
         gap: 1.5rem;
         padding: 0.75rem 1rem;
-        background: var(--bg-main);
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
         font-size: 0.875rem;
         color: var(--text-secondary);
@@ -82,27 +82,21 @@
         gap: 0.75rem;
     }
 
-    .pri-btn {
-        background: var(--success);
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-    }
-
     .sec-btn {
         background: transparent;
         border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
+        color: var(--text-secondary);
+        padding: 0.5rem 1.25rem;
+        border-radius: 6px;
         cursor: pointer;
+        font-size: 0.85rem;
         font-weight: 500;
+        transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
 
     .sec-btn:hover {
         background: var(--bg-card);
+        color: var(--text-primary);
+        border-color: #333333;
     }
 </style>

@@ -8,7 +8,7 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
     <main>
         <header class="main-header">
             <h1>Astro Docs Translation Hub</h1>
-            <p>Clean, automated reviews for global documentation</p>
+            <p>Catch common translation mistakes in Astro/Starlight Docs PRs</p>
         </header>
 
         <PRForm />
@@ -19,10 +19,7 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
 </Layout>
 
 <script>
-    import {
-        runTranslationReview,
-        postGitHubReview,
-    } from "@astro-docs-i18n-reviewer/core";
+    import { runTranslationReview } from "@astro-docs-i18n-reviewer/core";
 
     const analyzeBtn = document.getElementById(
         "analyzeBtn",
@@ -40,13 +37,8 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         "suggestionsList",
     ) as HTMLElement;
     const copyBtn = document.getElementById("copyBtn") as HTMLButtonElement;
-    const commentBtn = document.getElementById(
-        "commentBtn",
-    ) as HTMLButtonElement;
 
     let reviewData: any = null;
-    let currentToken = "";
-    let currentPR = "";
 
     function escapeHtml(str: string): string {
         return str
@@ -134,7 +126,11 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         ];
         for (const file of report.fileReports) {
             if (file.status === "passed") {
-                lines.push(`### ✅ \`${file.filename}\``, `No issues found.`, ``);
+                lines.push(
+                    `### ✅ \`${file.filename}\``,
+                    `No issues found.`,
+                    ``,
+                );
             } else {
                 lines.push(
                     `### ⚠️ \`${file.filename}\` — ${file.comments.length} suggestion${file.comments.length !== 1 ? "s" : ""}`,
@@ -161,14 +157,10 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         analyzeBtn.innerText = "Reviewing...";
 
         try {
-            currentPR = prValue;
-            currentToken = tokenValue;
-
             const report = await runTranslationReview({
                 prUrlOrNumber: prValue,
                 githubToken: tokenValue,
             });
-
             reviewData = report;
             renderReport(report);
             reportPreview.classList.remove("hidden");
@@ -185,34 +177,8 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         const md = generateMarkdown(reviewData);
         navigator.clipboard.writeText(md).then(() => {
             copyBtn.innerText = "Copied!";
-            setTimeout(() => (copyBtn.innerText = "Copy Markdown"), 2000);
+            setTimeout(() => (copyBtn.innerText = "Copy Report"), 2000);
         });
-    });
-
-    commentBtn?.addEventListener("click", async () => {
-        if (!reviewData || !currentPR || !currentToken) return;
-
-        commentBtn.disabled = true;
-        commentBtn.innerText = "Submitting Review...";
-
-        try {
-            await postGitHubReview(
-                {
-                    prUrlOrNumber: currentPR,
-                    githubToken: currentToken,
-                },
-                reviewData.reviewBody,
-                reviewData.inlineComments,
-            );
-            alert(
-                "Review posted successfully as individual localized code threads!",
-            );
-        } catch (err: any) {
-            alert(`API Error: ${err.message}`);
-        } finally {
-            commentBtn.disabled = false;
-            commentBtn.innerText = "Submit GitHub Review";
-        }
     });
 </script>
 
@@ -246,52 +212,58 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         border: 1px solid var(--border-color);
         border-radius: 8px;
         overflow: hidden;
+        background: var(--bg-surface);
     }
 
     :global(.file-card.passed) {
-        border-color: #065f46;
+        border-color: #0d3d2b;
     }
 
     :global(.file-card.failed) {
-        border-color: #78350f;
+        border-color: #3d1c06;
     }
 
     :global(.file-header) {
         display: flex;
         align-items: center;
         gap: 0.625rem;
-        padding: 0.625rem 0.875rem;
-        background: var(--bg-main);
+        padding: 0.7rem 1rem;
+        background: var(--bg-card);
         flex-wrap: wrap;
     }
 
     :global(.file-icon) {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        flex-shrink: 0;
     }
 
     :global(.file-path) {
         font-size: 0.8rem;
-        color: var(--text-secondary);
+        color: var(--text-primary);
         flex: 1;
         word-break: break-all;
+        opacity: 0.8;
     }
 
     :global(.badge) {
-        font-size: 0.7rem;
+        font-size: 0.68rem;
         font-weight: 600;
-        padding: 0.15rem 0.5rem;
+        padding: 0.15rem 0.55rem;
         border-radius: 99px;
         white-space: nowrap;
+        letter-spacing: 0.02em;
     }
 
     :global(.badge-pass) {
-        background: #065f46;
-        color: #6ee7b7;
+        background: #0a2e1e;
+        color: #4ade80;
+        border: 1px solid #0d3d2b;
     }
 
     :global(.badge-fail) {
-        background: #78350f;
-        color: #fcd34d;
+        background: #2a1000;
+        color: #fb923c;
+        border: 1px solid #3d1c06;
     }
 
     :global(.comments-list) {
@@ -302,44 +274,52 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
 
     :global(.comment-item) {
         display: flex;
-        gap: 0.75rem;
-        padding: 0.625rem 0.875rem;
+        gap: 0.875rem;
+        padding: 0.75rem 1rem;
         border-top: 1px solid var(--border-color);
         font-size: 0.85rem;
         align-items: flex-start;
     }
 
+    :global(.comment-item:last-child) {
+        padding-bottom: 0.9rem;
+    }
+
     :global(.line-badge) {
         font-family: monospace;
-        font-size: 0.75rem;
-        background: var(--bg-card);
-        color: var(--text-secondary);
-        padding: 0.1rem 0.4rem;
+        font-size: 0.72rem;
+        background: #1a1000;
+        color: #fb923c;
+        border: 1px solid #3d1c06;
+        padding: 0.15rem 0.45rem;
         border-radius: 4px;
         white-space: nowrap;
         flex-shrink: 0;
+        margin-top: 0.1rem;
     }
 
     :global(.comment-body) {
         color: var(--text-primary);
         white-space: pre-wrap;
-        line-height: 1.5;
+        line-height: 1.6;
+        opacity: 0.9;
     }
 
     :global(.empty-state) {
         color: var(--text-secondary);
         font-size: 0.9rem;
         text-align: center;
-        padding: 2rem;
+        padding: 2.5rem 2rem;
     }
 
     :global(.empty-state p) {
-        margin: 0 0 0.4rem;
+        margin: 0 0 0.5rem;
     }
 
     :global(.empty-hint) {
         font-size: 0.8rem;
-        opacity: 0.7;
+        opacity: 0.6;
+        line-height: 1.6;
     }
 
     :global(.empty-hint code) {
@@ -348,5 +328,6 @@ import ReportMarkdown from "../components/ReportMarkdown.astro";
         padding: 0.1rem 0.3rem;
         border-radius: 3px;
         margin: 0 0.1rem;
+        border: 1px solid var(--border-color);
     }
 </style>
