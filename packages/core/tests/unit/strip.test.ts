@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { stripNonLinkContent, stripNonProseContent } from "../../libs/strip";
+import { stripCodeContent, stripNonProseContent } from "../../libs/strip";
 
 describe("stripNonProseContent", () => {
   test("preserves the length of every line", () => {
@@ -59,10 +59,43 @@ describe("stripNonProseContent", () => {
   });
 });
 
-describe("stripNonLinkContent", () => {
-  test("keeps link URLs", () => {
-    expect(stripNonLinkContent("[link](/en/guide/)")).toBe(
-      "[link](/en/guide/)",
+describe("stripCodeContent", () => {
+  test("keeps link URLs and HTML attributes", () => {
+    expect(stripCodeContent('[link](/en/guide/) <a href="/en/">')).toBe(
+      '[link](/en/guide/) <a href="/en/">'
     );
+  });
+});
+
+describe("stripNonProseContent with non-prose Markdown", () => {
+  test("blanks frontmatter values except translatable ones", () => {
+    const stripped = stripNonProseContent(
+      ["---", "title: Integrations", "type: integration", "sidebar:", "  label: Integrations", "---"].join("\n")
+    ).split("\n");
+
+    expect(stripped[1]?.trim()).toBe("Integrations");
+    expect(stripped[2]?.trim()).toBe("");
+    expect(stripped[4]?.trim()).toBe("Integrations");
+  });
+
+  test("blanks file names, URLs, reference labels and error messages", () => {
+    const stripped = stripNonProseContent(
+      [
+        "Edit package.json and i18n.routing, see https://example.com/components.",
+        "Use the [integration][astro-integration].",
+        "[astro-integration]: /en/guides/integrations/",
+        "> **NoClientEntrypoint**: `X` component has no client entrypoint.",
+        "Join the #integrations channel and use astro:actions.",
+      ].join("\n")
+    );
+
+    expect(stripped).not.toMatch(
+      /package|routing|components|astro-integration|entrypoint|integrations|actions/
+    );
+    expect(stripped).toContain("[integration]");
+  });
+
+  test("blanks code blocks opened on a list item line", () => {
+    expect(stripNonProseContent('1.  ```md title="page.md"\n    "quoted"\n    ```')).not.toContain("quoted");
   });
 });

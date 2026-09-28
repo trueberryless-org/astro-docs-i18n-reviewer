@@ -1,6 +1,9 @@
 import { describe, expect, test } from "vitest";
 
-import { getUntranslatedContentComments } from "../../libs/untranslated";
+import {
+  getUntranslatedContentComments,
+  isLikelySentenceCaseHeading,
+} from "../../libs/untranslated";
 
 const prose =
   "This paragraph explains how routing works in an Astro project in detail.";
@@ -37,5 +40,23 @@ describe("getUntranslatedContentComments", () => {
         undefined,
       ),
     ).toEqual([]);
+  });
+});
+
+describe("isLikelySentenceCaseHeading", () => {
+  test("detects sentence case headings", () => {
+    expect(isLikelySentenceCaseHeading("Display unprocessed images with the HTML tag")).toBe(true);
+    expect(isLikelySentenceCaseHeading("Visual Studio Code")).toBe(false);
+    expect(isLikelySentenceCaseHeading("`getCollection()`")).toBe(false);
+  });
+});
+
+describe("getUntranslatedContentComments with headings", () => {
+  test("reports untranslated sentence case headings", () => {
+    const original = "## Display images from a folder\n\n## Visual Studio Code";
+
+    expect(
+      getUntranslatedContentComments(original, original, "file.md", undefined).map(({ body }) => body)
+    ).toEqual([expect.stringContaining("heading appears untranslated")]);
   });
 });

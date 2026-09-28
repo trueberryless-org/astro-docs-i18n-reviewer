@@ -5,6 +5,12 @@ import type { RulePattern } from "../libs/types";
  * These are checked in addition to locale-specific patterns.
  */
 export const commonPatterns: RulePattern[] = [
+  {
+    regex:
+      /^[ \t]*:{3,}(?!(?:note|tip|caution|danger)(?![\p{L}\p{N}]))\p{L}[^\s[{]*/gmu,
+    message:
+      "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
+  },
   // ── Brand name capitalisation ────────────────────────────────────────────
   {
     regex: /\bGithub\b/g,
@@ -51,5 +57,20 @@ export const commonPatterns: RulePattern[] = [
     regex: /(?<!X\s+)\bTwitter\b/g,
     message: "Outdated name — write `X (Twitter)`.",
     suggestion: "X (Twitter)",
+  },
+  {
+    regex: /\b(?:Startlight|Starligth|Starligh|StarLight)\b/g,
+    message: "Typo — write `Starlight`.",
+    suggestion: "Starlight",
+  },
+  {
+    regex: /\bWebstorm\b/g,
+    message: "Wrong capitalisation — write `WebStorm`.",
+    suggestion: "WebStorm",
+  },
+  {
+    regex: /\bpromt\b/g,
+    message: "Typo — write `prompt`.",
+    suggestion: "prompt",
   },
 ];

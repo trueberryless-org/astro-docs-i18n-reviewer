@@ -1,5 +1,6 @@
 const FRONTMATTER_DELIMITER = "---";
-const FENCE_OPENING_RE = /^\s*(`{3,}(?!.*`)|~{3,})(\S*)/;
+const FENCE_OPENING_RE =
+  /^\s*(?:(?:[-*+]|\d+[.)])\s+)?(`{3,}(?!.*`)|~{3,})(\S*)/;
 const FENCE_CLOSING_RE = /^\s*(`+|~+)\s*$/;
 const FENCE_LANGUAGE_INVALID_CHARACTERS_RE = /[^a-z0-9]/g;
 

@@ -1,11 +1,12 @@
 import { describe, expect, test } from "vitest";
 
 import {
-  getEnglishLinkPattern,
   getRuleComments,
   getRuleMatches,
+  matchWord,
 } from "../../libs/rules";
-import { stripNonLinkContent, stripNonProseContent } from "../../libs/strip";
+import { stripNonProseContent } from "../../libs/strip";
+import { commonPatterns } from "../../rules";
 
 const pattern = {
   message: "Wrong capitalisation — write `GitHub`.",
@@ -65,18 +66,32 @@ describe("getRuleComments", () => {
   });
 });
 
-describe("getEnglishLinkPattern", () => {
-  test("reports links to English pages", () => {
-    const content = "See the [guide](/en/guides/routing/).";
 
-    const comments = getRuleComments(
-      content,
-      stripNonLinkContent(content),
-      [getEnglishLinkPattern("pt-br")],
-      { addedLines: undefined, path: "file.md" },
-    );
+describe("matchWord", () => {
+  test("matches whole words containing non-ASCII letters", () => {
+    const regex = matchWord("wdrożyć");
+
+    expect("Możesz wdrożyć stronę.".match(regex)).toEqual(["wdrożyć"]);
+    expect("przedwdrożyć".match(regex)).toBeNull();
+  });
+
+  test("matches words in non-Latin scripts", () => {
+    expect("फ़ाइल को खोलें".match(matchWord("फ़ाइल"))).toEqual(["फ़ाइल"]);
+    expect("फ़ाइलों".match(matchWord("फ़ाइल"))).toBeNull();
+  });
+});
+
+describe("commonPatterns", () => {
+  test("reports translated aside types in any language", () => {
+    const content = [":::tip[Título]", ":::consejo", "::::注意", ":::note", ":::"].join("\n");
+
+    const comments = getRuleComments(content, content, commonPatterns, {
+      addedLines: undefined,
+      path: "file.md",
+    });
 
     expect(comments).toHaveLength(1);
-    expect(comments[0]?.body).toContain("`/pt-br/`");
+    expect(comments[0]?.line).toBe(2);
+    expect(comments[0]?.body).toContain("occurs 2 times");
   });
 });

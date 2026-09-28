@@ -15,6 +15,7 @@ describe("reviewTranslationFile", () => {
         patch: undefined,
         path: "src/content/docs/de/index.md",
         ruleset,
+        siteUrl: "https://docs.astro.build",
         translatedContent: "## Hallo",
       }),
     ).toEqual({
@@ -33,6 +34,7 @@ describe("reviewTranslationFile", () => {
       patch: undefined,
       path: "src/content/docs/de/index.md",
       ruleset,
+      siteUrl: "https://docs.astro.build",
       translatedContent: "## Hallo\n\nMit Github.",
     });
 

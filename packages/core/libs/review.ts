@@ -9,9 +9,11 @@ import {
   parsePullRequest,
 } from "./github";
 import { getHeadingStructureComments } from "./headings";
-import { getRepoConfig, isDefaultLocale } from "./repo";
-import { getEnglishLinkPattern, getRuleComments } from "./rules";
-import { stripNonLinkContent, stripNonProseContent } from "./strip";
+import { getLinkComments } from "./links";
+import { DEFAULT_LOCALE, getRepoConfig, isDefaultLocale } from "./repo";
+import { getRuleComments } from "./rules";
+import { stripCodeContent, stripNonProseContent } from "./strip";
+import { getStructureComments } from "./structure";
 import type {
   FileCheckResult,
   LanguageRule,
@@ -22,6 +24,8 @@ import type {
 import { getUntranslatedContentComments } from "./untranslated";
 
 const MARKDOWN_EXTENSION_RE = /\.mdx?$/;
+
+const LOCALES = new Set([DEFAULT_LOCALE, ...LANGUAGES.keys()]);
 
 export async function runTranslationReview({
   githubToken,
@@ -67,6 +71,7 @@ export async function runTranslationReview({
         patch: file.patch,
         path: file.filename,
         ruleset,
+        siteUrl: repoConfig.siteUrl,
         translatedContent: translatedContent ?? "",
       })
     );
@@ -85,6 +90,7 @@ export function reviewTranslationFile({
   patch,
   path,
   ruleset,
+  siteUrl,
   translatedContent,
 }: TranslationFile): FileCheckResult {
   const addedLines = patch ? parseAddedLineNumbers(patch) : undefined;
@@ -99,6 +105,12 @@ export function reviewTranslationFile({
             translatedContent,
             path
           ),
+          ...getStructureComments(
+            originalContent,
+            translatedContent,
+            path,
+            addedLines
+          ),
           ...getUntranslatedContentComments(
             originalContent,
             translatedContent,
@@ -106,12 +118,13 @@ export function reviewTranslationFile({
             addedLines
           ),
         ]),
-    ...getRuleComments(
-      translatedContent,
-      stripNonLinkContent(translatedContent),
-      [getEnglishLinkPattern(ruleset.locale)],
-      ruleOptions
-    ),
+    ...getLinkComments(translatedContent, stripCodeContent(translatedContent), {
+      ...ruleOptions,
+      locale: ruleset.locale,
+      locales: LOCALES,
+      mdnLocale: ruleset.mdnLocale,
+      siteUrl,
+    }),
     ...getRuleComments(
       translatedContent,
       stripNonProseContent(translatedContent),
@@ -137,5 +150,6 @@ interface TranslationFile {
   patch: string | undefined;
   path: string;
   ruleset: LanguageRule;
+  siteUrl: string;
   translatedContent: string;
 }

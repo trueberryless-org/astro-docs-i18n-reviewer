@@ -38,5 +38,6 @@ export interface RulePattern {
 export interface LanguageRule {
   guideUrl?: string;
   locale: string;
+  mdnLocale?: string;
   patterns: RulePattern[];
 }

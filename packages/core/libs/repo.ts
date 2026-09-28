@@ -1,12 +1,13 @@
 const LOCALE_SEGMENT_RE = /\/content\/docs\/([a-z]{2,3}(?:-[a-z]+)?)\//;
 
-const DEFAULT_LOCALE = "en";
+export const DEFAULT_LOCALE = "en";
 
 const astroDocsRepoConfig: RepoConfig = {
   getLocale: getLocaleFromPath,
   getOriginalPath(path) {
     return path.replace(LOCALE_SEGMENT_RE, `/content/docs/${DEFAULT_LOCALE}/`);
   },
+  siteUrl: "https://docs.astro.build",
 };
 
 const starlightRepoConfig: RepoConfig = {
@@ -14,6 +15,7 @@ const starlightRepoConfig: RepoConfig = {
   getOriginalPath(path) {
     return path.replace(LOCALE_SEGMENT_RE, "/content/docs/");
   },
+  siteUrl: "https://starlight.astro.build",
 };
 
 export function getRepoConfig(owner: string, repo: string) {
@@ -33,4 +35,5 @@ function getLocaleFromPath(path: string) {
 export interface RepoConfig {
   getLocale: (path: string) => string;
   getOriginalPath: (path: string) => string;
+  siteUrl: string;
 }

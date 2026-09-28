@@ -1,10 +1,10 @@
 import type { ReviewComment, RulePattern } from "./types";
 
-export function getEnglishLinkPattern(locale: string): RulePattern {
-  return {
-    message: `Internal link to \`/en/\` found — please update it to \`/${locale}/\`.`,
-    regex: /\[.*?\]\(\/en\/.*?\)/g,
-  };
+export function matchWord(source: string, flags = "giu") {
+  return new RegExp(
+    `(?<![\\p{L}\\p{M}\\p{N}_])(?:${source})(?![\\p{L}\\p{M}\\p{N}_])`,
+    flags
+  );
 }
 
 export function getRuleComments(
