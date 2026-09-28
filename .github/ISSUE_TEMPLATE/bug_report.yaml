@@ -55,7 +55,7 @@ body:
     attributes:
       label: Steps to reproduce
       placeholder: |
-        1. Open the app at https://astro-docs-i18n-reviewer.trueberryless.org
+        1. Open the app at https://astro-docs-i18n-reviewer.netlify.app
         2. Paste PR URL …
         3. …
 

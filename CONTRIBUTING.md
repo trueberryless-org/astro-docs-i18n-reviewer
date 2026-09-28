@@ -15,7 +15,7 @@ Thank you for helping improve translation quality for the Astro community! 🎉
 
 ## Development setup
 
-**Prerequisites**: [Node.js ≥ 24](https://nodejs.org/) and [pnpm ≥ 11](https://pnpm.io/).
+**Prerequisites**: [Node.js ≥ 22.12](https://nodejs.org/) and [pnpm ≥ 11](https://pnpm.io/).
 
 ```bash
 git clone https://github.com/trueberryless-org/astro-docs-i18n-reviewer.git
@@ -23,11 +23,8 @@ cd astro-docs-i18n-reviewer
 
 pnpm install
 
-# Build the core package first (the web app depends on it)
-pnpm --filter @astro-docs-i18n-reviewer/core build
-
 # Start the dev server
-pnpm --filter @astro-docs-i18n-reviewer/web dev
+pnpm dev
 ```
 
 Open <http://localhost:4321> in your browser.
@@ -40,35 +37,36 @@ Open <http://localhost:4321> in your browser.
 astro-docs-i18n-reviewer/
 ├── packages/
 │   └── core/
-│       ├── src/
-│       │   ├── index.ts          # Main analysis engine
-│       │   └── rules/
-│       │       ├── common.ts     # Rules applied to every language
-│       │       ├── index.ts      # Rule registry + locale helpers
-│       │       ├── de.ts
-│       │       ├── fr.ts
-│       │       └── ...           # One file per supported locale
-│       └── tsconfig.json
+│       ├── index.ts              # Public entry point
+│       ├── libs/                 # Review logic (GitHub API, Markdown parsing, checks)
+│       ├── rules/
+│       │   ├── common.ts         # Rules applied to every language
+│       │   ├── index.ts          # Rule registry
+│       │   ├── de.ts
+│       │   ├── fr.ts
+│       │   └── ...               # One file per supported locale
+│       └── tests/unit/           # Vitest unit tests
 └── apps/
     └── web/
         └── src/
-            ├── pages/
-            │   └── index.astro   # Main UI page
-            └── components/
-                └── PRForm.astro  # PR submission form
+            ├── components/       # UI components
+            ├── libs/report.ts    # Report rendering helpers
+            └── pages/
+                └── index.astro   # Main UI page
 ```
 
 ---
 
 ## Adding or improving language rules
 
-Each locale lives in `packages/core/src/rules/<locale>.ts` and exports a `LanguageRuleset`:
+Each locale lives in `packages/core/rules/<locale>.ts` and exports a `LanguageRule`:
 
 ```ts
-import type { LanguageRuleset } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
-const ruleset: LanguageRuleset = {
+export const deRules: LanguageRule = {
   locale: "de",
+  guideUrl: "https://github.com/withastro/docs/blob/main/i18n-guides/deutsch.md",
   patterns: [
     {
       regex: /\bdeployen\b/gi,
@@ -77,8 +75,6 @@ const ruleset: LanguageRuleset = {
     },
   ],
 };
-
-export default ruleset;
 ```
 
 ### Rule fields
@@ -87,35 +83,38 @@ export default ruleset;
 |-------|------|----------|-------------|
 | `regex` | `RegExp` | ✅ | Pattern to match in the translated file |
 | `message` | `string` | ✅ | Human-readable explanation shown in the review comment |
-| `suggestion` | `string` | — | Replacement text for a one-click GitHub suggestion block |
+| `suggestion` | `string` | — | Replacement text used to show the corrected line in the report |
 
 ### Universal rules
 
-Rules that apply to every language (brand-name capitalisation, etc.) go in `packages/core/src/rules/common.ts`. **Do not duplicate** these in individual locale files.
+Rules that apply to every language (brand-name capitalisation, etc.) go in `packages/core/rules/common.ts`. **Do not duplicate** these in individual locale files. Links to `/en/` pages are detected for every locale automatically.
 
 ### Tips for good rules
 
 - Read through merged translation PRs at <https://github.com/withastro/docs/pulls?q=label%3Ai18n+is%3Aclosed+is%3Amerged> for inspiration — these are real mistakes that happened.
 - Prefer specific regexes over broad ones to avoid false positives.
 - Include a `suggestion` whenever there is a single canonical replacement.
-- Check your new rule doesn't fire on the code-block or MDX-import stripping pipeline — run the dev server and test against a real PR.
+- Rules never see code blocks, inline code, HTML/JSX tags, link URLs or MDX imports — run the dev server and test against a real PR to double-check.
 
 ### Registering a new locale
 
-1. Create `packages/core/src/rules/<locale>.ts`.
-2. Add it to `packages/core/src/rules/index.ts` (import + entry in the `LANGUAGES` map).
-3. Add the locale code + display name to the sorted lists in `apps/web/src/pages/index.astro` and `apps/web/src/components/PRForm.astro`.
+1. Create `packages/core/rules/<locale>.ts`.
+2. Add it to `packages/core/rules/index.ts` (import + entry in the `LANGUAGES` map).
+3. Add the language to the list in `apps/web/src/components/PRForm.astro` and `README.md`.
 
 ---
 
 ## Running CI checks locally
 
 ```bash
-# Typecheck + build core
-pnpm --filter @astro-docs-i18n-reviewer/core build
+# Type-check the whole repository
+pnpm check
 
-# Typecheck + build web
-pnpm --filter @astro-docs-i18n-reviewer/web build
+# Run the unit tests
+pnpm test
+
+# Build the web app
+pnpm build
 ```
 
 ---
@@ -133,7 +132,7 @@ Please keep PRs focused on a single concern. Large PRs are harder to review and 
 
 ## Reporting bugs
 
-Use the **[Bug report](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/issues/new?template=bug_report.yml)** issue template. Include:
+Use the **[Bug report](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/issues/new?template=bug_report.yaml)** issue template. Include:
 
 - The PR URL you were reviewing
 - The locale selected

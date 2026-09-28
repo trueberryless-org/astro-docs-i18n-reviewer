@@ -33,7 +33,7 @@ body:
         - New locale support
         - Heading structure comparison
         - Untranslated content detection
-        - GitHub comment / suggestion output
+        - Review report output
         - Web UI
         - CI / developer tooling
         - Documentation
