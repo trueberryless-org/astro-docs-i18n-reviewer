@@ -17,6 +17,24 @@ const { title } = Astro.props;
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <meta
+      name="description"
+      content="Spot common mistakes in Astro docstranslations."
+    />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:description"
+      content="Spot common mistakes in Astro docstranslations."
+    />
+    <meta
+      property="og:image"
+      content="https://astro-docs-i18n-reviewer.netlify.app/og.png"
+    />
+    <meta
+      property="og:image:alt"
+      content="Spot common mistakes in Astro docstranslations."
+    />
   </head>
   <body>
     <div class="app-container">
