@@ -4,6 +4,7 @@
 
 [![CI](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/actions/workflows/ci.yaml/badge.svg)](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/actions/workflows/ci.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/blob/main/LICENSE)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/06e9e1ee-723d-4ff7-a55c-3fbae69ae8bb/deploy-status)](https://app.netlify.com/projects/astro-docs-i18n-reviewer/deploys)
 
 ## What it does
 
