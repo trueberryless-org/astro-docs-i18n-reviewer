@@ -2,16 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const koRules: LanguageRule = {
   locale: "ko",
+  mdnLocale: "ko",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/%ED%95%9C%EA%B5%AD%EC%96%B4.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(?:노트|팁|주의|경고|위험)\b/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\bchangelog\b/gi,

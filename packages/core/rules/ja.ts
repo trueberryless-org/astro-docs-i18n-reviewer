@@ -2,16 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const jaRules: LanguageRule = {
   locale: "ja",
+  mdnLocale: "ja",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/%E6%97%A5%E6%9C%AC%E8%AA%9E.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(?:ノート|ヒント|注意|警告|危険)\b/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Terms that must NOT be over-translated ───────────────────────────────
     {
       regex: /マークダウン/g,
@@ -117,6 +111,20 @@ export const jaRules: LanguageRule = {
       message:
         "Per the guide, `architecture` in katakana does not use a trailing long vowel — write `アーキテクチャ` (not `アーキテクチャー`).",
       suggestion: "アーキテクチャ",
+    },
+
+    // ── Gotchas found in merged translation reviews ──────────────────────────
+    {
+      regex: /(?<=[てで])下さい/g,
+      message:
+        "Write the auxiliary verb in hiragana — `ください` instead of `下さい`.",
+      suggestion: "ください",
+    },
+    {
+      regex: /主要リリース/g,
+      message:
+        "`major release` is written `メジャーリリース` in the Japanese docs.",
+      suggestion: "メジャーリリース",
     },
   ],
 };

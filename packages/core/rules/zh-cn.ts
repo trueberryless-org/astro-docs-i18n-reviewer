@@ -2,16 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const zhCnRules: LanguageRule = {
   locale: "zh-cn",
+  mdnLocale: "zh-CN",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(?:注|提示|注意|警告|危险)\b/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\badapters?\b/gi,
@@ -114,13 +108,15 @@ export const zhCnRules: LanguageRule = {
       suggestion: "其他",
     },
     {
-      regex: /\bfrontmatter\b/gi,
+      regex: /前置元数据|前置数据|头部信息/g,
       message:
         "`frontmatter` as a term stays untranslated (写作 `frontmatter`).",
+      suggestion: "frontmatter",
     },
     {
-      regex: /\bslug\b/gi,
+      regex: /蛞蝓|短链接/g,
       message: "`slug` stays untranslated.",
+      suggestion: "slug",
     },
   ],
 };

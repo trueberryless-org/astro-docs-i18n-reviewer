@@ -5,13 +5,6 @@ export const deRules: LanguageRule = {
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/deutsch.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(hinweis|tipp|warnung|achtung|gefahr)\b/gi,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Typography ───────────────────────────────────────────────────────────
     {
       regex: /"[^"\n]+"(?!\s*\()/g,
@@ -144,6 +137,65 @@ export const deRules: LanguageRule = {
         /\b(Developer\*innen|Entwickler\*innen|Entwickler:innen|Developer:innen)\b/gi,
       message:
         "Avoid gendered `*innen`/`:innen` forms — the guide asks for gender-neutral language instead.",
+    },
+
+    // ── Gotchas found in merged translation reviews ──────────────────────────
+    {
+      regex:
+        /(?<=[\p{Ll},] )(?:Du|Dich|Dir|Dein(?:e|en|em|er|es)?)(?![\p{L}\p{M}])/gu,
+      message:
+        "Write `du`, `dich`, `dir` and `dein` in lowercase in the middle of a sentence.",
+    },
+    {
+      regex:
+        /(?<=[\p{Ll},] )Sie (?:können|müssen|sollten|haben|werden|brauchen|möchten|finden|sehen)(?![\p{L}\p{M}])/gu,
+      message:
+        "The German docs address the reader with `du` — avoid the formal `Sie`.",
+    },
+    {
+      regex: /\bSite\b/g,
+      message:
+        "Use `Website` (or `Seite` for a single page) instead of `Site`.",
+      suggestion: "Website",
+    },
+    {
+      regex: /\bAstro['’]s\b/g,
+      message:
+        "German genitive without an apostrophe — write `Astros` (or `von Astro`).",
+      suggestion: "Astros",
+    },
+    {
+      regex: /\bHomepage\b/g,
+      message: "Use `Startseite` instead of `Homepage`.",
+      suggestion: "Startseite",
+    },
+    {
+      regex: /\bKommandos?\b/g,
+      message: "Use `Befehl` for CLI commands instead of `Kommando`.",
+    },
+    {
+      regex: /\bKomponententemplates?\b/g,
+      message: "Use `Komponentenvorlage` instead of `Komponententemplate`.",
+    },
+    {
+      regex: /\bDependenc(?:y|ies)\b/g,
+      message: "Translate `Dependencies` as `Abhängigkeiten`.",
+      suggestion: "Abhängigkeiten",
+    },
+    {
+      regex: /\bVerzeichniss\b/g,
+      message: "Typo — write `Verzeichnis` (with a single `s`).",
+      suggestion: "Verzeichnis",
+    },
+    {
+      regex: /\bKomponent\b/g,
+      message: "Typo — write `Komponente`.",
+      suggestion: "Komponente",
+    },
+    {
+      regex: /\b(?:Sehe|Übergebe|Gebe|Nehme|Lese)\b(?= )/g,
+      message:
+        "Use the imperative without `-e` for strong verbs — e.g. `Sieh`, `Übergib`, `Gib`, `Nimm`, `Lies`.",
     },
   ],
 };

@@ -87,7 +87,24 @@ export const deRules: LanguageRule = {
 
 ### Universal rules
 
-Rules that apply to every language (brand-name capitalisation, etc.) go in `packages/core/rules/common.ts`. **Do not duplicate** these in individual locale files. Links to `/en/` pages are detected for every locale automatically.
+Rules that apply to every language (brand-name capitalisation, translated aside types, etc.) go in `packages/core/rules/common.ts`. **Do not duplicate** these in individual locale files. Link, frontmatter, component, slot and heading checks run for every locale automatically.
+
+### Matching words in any script
+
+JavaScript's `\b` only understands ASCII letters, so it doesn't work next to letters like `ż`, `é`, Cyrillic, Devanagari or Arabic. Use the `matchWord()` helper instead, which matches whole words in any script:
+
+```ts
+import { matchWord } from "../libs/rules";
+
+{
+  regex: matchWord("komend(?:a|y|ę)"),
+  message: "Use `polecenie` instead of `komenda` for CLI commands.",
+}
+```
+
+### Validating a rule
+
+Before adding a rule, check that it doesn't fire on the existing, already reviewed translations of the language: a rule that matches many merged pages usually contradicts what the language's translators agreed on.
 
 ### Tips for good rules
 
@@ -100,7 +117,8 @@ Rules that apply to every language (brand-name capitalisation, etc.) go in `pack
 
 1. Create `packages/core/rules/<locale>.ts`.
 2. Add it to `packages/core/rules/index.ts` (import + entry in the `LANGUAGES` map).
-3. Add the language to the list in `apps/web/src/components/PRForm.astro` and `README.md`.
+3. Add the language to the lists in `apps/web/src/components/PRForm.astro`, `README.md` and `.github/ISSUE_TEMPLATE/bug_report.yaml`.
+4. If [MDN](https://developer.mozilla.org/) is available in the language, set `mdnLocale` so links to English MDN pages are reported.
 
 ---
 

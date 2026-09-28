@@ -5,13 +5,6 @@ export const arRules: LanguageRule = {
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::[\u0600-\u06FF]/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Terms that MUST be translated ────────────────────────────────────────
     {
       regex: /\bframework\b/gi,
@@ -166,6 +159,24 @@ export const arRules: LanguageRule = {
       message:
         "`API` should stay as `API` (add `(API)` if clarification is needed).",
       suggestion: "API",
+    },
+
+    // ── Hamza and spelling (found in merged translation reviews) ─────────────
+    {
+      regex: /(?<![\p{L}\p{M}])(ال)?إ(ست|فت|خت|نت)/gu,
+      message:
+        "Words of the forms `استفعال`/`افتعال` start with hamzat al-wasl — write `ا` instead of `إ` (e.g. `استخدام`, `افتراضي`).",
+    },
+    {
+      regex: /(?<![\p{L}\p{M}])ايضا(?![\p{L}\p{M}])/gu,
+      message: "Write `أيضًا` with a hamza.",
+      suggestion: "أيضًا",
+    },
+    {
+      regex: /(?<![\p{L}\p{M}])و (?=\p{Script=Arabic})/gu,
+      message:
+        "The conjunction `و` is attached to the following word — remove the space.",
+      suggestion: "و",
     },
   ],
 };

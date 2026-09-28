@@ -13,8 +13,9 @@ Paste a GitHub PR URL (or number) from the [withastro/docs](https://github.com/w
 - **Suggested replacements** — rules with a canonical replacement include a `suggestion` block showing the corrected line
 - **Heading structure comparison** — detects missing or extra headings by comparing the translated file against the original English, pointing you to the exact section
 - **Untranslated content detection** — flags prose paragraphs and code comments that are identical to the original English
-- **Links to English pages** — flags internal links that still point to `/en/` instead of the translated locale
-- **Language-specific terminology rules** — 10 supported locales, each with a curated ruleset drawn from the official i18n guides and merged PR reviews
+- **Link checks** — flags internal links to `/en/` or another locale, links missing the locale prefix or a trailing slash, full `https://docs.astro.build` URLs, anchors that don't match any translated heading, and English MDN links when MDN is available in the language
+- **Structure checks** — flags translated frontmatter property names, component names, slot names and aside types (`:::tip`), as well as untranslated headings and descriptions
+- **Language-specific rules** — every locale of the Astro Docs and Starlight docs (19 in total), each with a curated ruleset drawn from the official i18n guides, the conventions of the merged translations and thousands of past review comments
 - **Common rules for all languages** — brand-name capitalisation (GitHub, JavaScript, TypeScript, npm, …) applied universally
 
 Only lines changed in the PR are checked for rule and untranslated-content matches, so pre-existing issues elsewhere in a file don't clutter the report.
@@ -24,13 +25,22 @@ Only lines changed in the PR are checked for rule and untranslated-content match
 | Code | Language |
 |------|----------|
 | `ar` | Arabic |
+| `da` | Danish |
 | `de` | German |
+| `es` | Spanish |
+| `fa` | Persian |
 | `fr` | French |
+| `hi` | Hindi |
+| `id` | Indonesian |
 | `it` | Italian |
 | `ja` | Japanese |
 | `ko` | Korean |
+| `pl` | Polish |
 | `pt-br` | Portuguese (Brazil) |
+| `pt-pt` | Portuguese (Portugal) |
 | `ru` | Russian |
+| `tr` | Turkish |
+| `uk` | Ukrainian |
 | `zh-cn` | Simplified Chinese |
 | `zh-tw` | Traditional Chinese |
 

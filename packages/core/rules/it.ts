@@ -5,14 +5,6 @@ export const itRules: LanguageRule = {
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/italiano.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex:
-        /:::(nota|suggerimento|attenzione|avvertimento|avvertenza|pericolo|consiglio)\b/gi,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Terms that MUST be translated ────────────────────────────────────────
     {
       regex: /\bclient-side\b/gi,

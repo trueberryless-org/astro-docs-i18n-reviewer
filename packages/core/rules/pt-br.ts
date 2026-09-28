@@ -2,16 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const ptBrRules: LanguageRule = {
   locale: "pt-br",
+  mdnLocale: "pt-BR",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/portugu%C3%AAs-do-brasil.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(nota|dica|cuidado|aviso|perigo|atençao|atenção|aviso)\b/gi,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Terms that MUST be translated ────────────────────────────────────────
     {
       regex: /\brouting\b/gi,

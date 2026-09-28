@@ -5,13 +5,6 @@ export const zhTwRules: LanguageRule = {
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::(?:注|提示|注意|警告|危險)\b/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\badapters?\b/gi,
@@ -142,5 +135,42 @@ export const zhTwRules: LanguageRule = {
         "Use `你` instead of `您` — Astro docs prefer a casual, friendly tone.",
       suggestion: "你",
     },
+
+    // ── Mainland Chinese terms (use Taiwanese terms instead) ─────────────────
+    ...(
+      [
+        ["站點", "網站"],
+        ["默認", "預設"],
+        ["信息", "資訊"],
+        ["服務器", "伺服器"],
+        ["代碼", "程式碼"],
+        ["組件", "元件"],
+        ["視頻", "影片"],
+        ["軟件", "軟體"],
+        ["網絡", "網路"],
+        ["數據", "資料"],
+        ["用戶", "使用者"],
+        ["鏈接", "連結"],
+        ["屏幕", "螢幕"],
+        ["調用", "呼叫"],
+        ["創建", "建立"],
+        ["添加", "新增"],
+        ["設置", "設定"],
+        ["優化", "最佳化"],
+        ["模塊", "模組"],
+        ["變量", "變數"],
+        ["函數", "函式"],
+        ["對象", "物件"],
+        ["字符串", "字串"],
+        ["異步", "非同步"],
+        ["緩存", "快取"],
+        ["文檔", "文件"],
+        ["菜單", "選單"],
+      ] satisfies [string, string][]
+    ).map(([mainland, taiwanese]) => ({
+      regex: new RegExp(mainland, "g"),
+      message: `\`${mainland}\` is a mainland Chinese term — use \`${taiwanese}\` in Traditional Chinese (Taiwan).`,
+      suggestion: taiwanese,
+    })),
   ],
 };

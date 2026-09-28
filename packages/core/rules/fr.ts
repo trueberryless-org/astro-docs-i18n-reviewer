@@ -2,17 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const frRules: LanguageRule = {
   locale: "fr",
+  mdnLocale: "fr",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/fran%C3%A7ais.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex:
-        /:::(remarque|astuce|attention|avertissement|avis|conseil|danger|note-fr)\b/gi,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Typography ───────────────────────────────────────────────────────────
     {
       regex: /"[^"\n]+"/g,
@@ -157,7 +150,8 @@ export const frRules: LanguageRule = {
       suggestion: "CLI",
     },
     {
-      regex: /\bglobaux?\b/gi,
+      regex:
+        /\b(?:motifs?|modèles?|formules?|correspondances?|importations?) glob(?:al|aux)\b/gi,
       message:
         "`global/globaux` looks like a mistranslation of `glob` — `glob` should stay untranslated (it's a proper noun / function name).",
     },
@@ -174,9 +168,9 @@ export const frRules: LanguageRule = {
       suggestion: "prendre en charge",
     },
     {
-      regex: /\ben ligne\b/gi,
+      regex: /\ben ligne\b(?! de commande)/gi,
       message:
-        "`en ligne` is almost always wrong for `inline` — use `au sein de`, `dans le corps`, or `intégré à` depending on context.",
+        "If this translates `inline`, avoid `en ligne` — use `au sein de`, `dans le corps`, or `intégré à` depending on context.",
     },
     {
       regex: /\bÎles Astro\b/gi,

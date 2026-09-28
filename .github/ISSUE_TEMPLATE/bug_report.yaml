@@ -22,13 +22,22 @@ body:
       label: Language / locale
       options:
         - ar (Arabic)
+        - da (Danish)
         - de (German)
+        - es (Spanish)
+        - fa (Persian)
         - fr (French)
+        - hi (Hindi)
+        - id (Indonesian)
         - it (Italian)
         - ja (Japanese)
         - ko (Korean)
+        - pl (Polish)
         - pt-br (Portuguese — Brazil)
+        - pt-pt (Portuguese — Portugal)
         - ru (Russian)
+        - tr (Turkish)
+        - uk (Ukrainian)
         - zh-cn (Simplified Chinese)
         - zh-tw (Traditional Chinese)
         - Not locale-specific

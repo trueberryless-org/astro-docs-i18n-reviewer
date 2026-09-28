@@ -2,16 +2,10 @@ import type { LanguageRule } from "../libs/types";
 
 export const ruRules: LanguageRule = {
   locale: "ru",
+  mdnLocale: "ru",
   guideUrl:
     "https://github.com/withastro/docs/blob/main/i18n-guides/russian.md",
   patterns: [
-    // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /:::[а-яёА-ЯЁ][а-яёА-ЯЁ]+/g,
-      message:
-        "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
-    },
-
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\bAstro Islands\b/gi,
