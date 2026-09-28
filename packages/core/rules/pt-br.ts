@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const ptBrRules: LanguageRule = {
   locale: "pt-br",
@@ -6,11 +6,6 @@ export const ptBrRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/portugu%C3%AAs-do-brasil.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/pt-BR/`.",
-    },
     {
       regex: /:::(nota|dica|cuidado|aviso|perigo|atençao|atenção|aviso)\b/gi,
       message:
@@ -20,8 +15,7 @@ export const ptBrRules: LanguageRule = {
     // ── Terms that MUST be translated ────────────────────────────────────────
     {
       regex: /\brouting\b/gi,
-      message:
-        "`routing` should be translated to `roteamento`.",
+      message: "`routing` should be translated to `roteamento`.",
       suggestion: "roteamento",
     },
     {
@@ -38,14 +32,12 @@ export const ptBrRules: LanguageRule = {
     },
     {
       regex: /\bclient-side\b/gi,
-      message:
-        "`client-side` should be translated to `lado do cliente`.",
+      message: "`client-side` should be translated to `lado do cliente`.",
       suggestion: "lado do cliente",
     },
     {
       regex: /\bserver-side\b/gi,
-      message:
-        "`server-side` should be translated to `lado do servidor`.",
+      message: "`server-side` should be translated to `lado do servidor`.",
       suggestion: "lado do servidor",
     },
     {
@@ -62,32 +54,27 @@ export const ptBrRules: LanguageRule = {
     },
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `Ilhas Astro`.",
+      message: "`Astro Islands` should be translated to `Ilhas Astro`.",
       suggestion: "Ilhas Astro",
     },
     {
       regex: /\bdeprecated\b/gi,
-      message:
-        "`deprecated` should be translated to `descontinuado`.",
+      message: "`deprecated` should be translated to `descontinuado`.",
       suggestion: "descontinuado",
     },
     {
       regex: /\bmetadata\b/gi,
-      message:
-        "`metadata` should be translated to `metadados`.",
+      message: "`metadata` should be translated to `metadados`.",
       suggestion: "metadados",
     },
     {
       regex: /\bdirectives?\b/gi,
-      message:
-        "`directive` should be translated to `diretiva`.",
+      message: "`directive` should be translated to `diretiva`.",
       suggestion: "diretiva",
     },
     {
       regex: /\badapters?\b/gi,
-      message:
-        "`adapter` should be translated to `adaptador`.",
+      message: "`adapter` should be translated to `adaptador`.",
       suggestion: "adaptador",
     },
     {
@@ -98,44 +85,37 @@ export const ptBrRules: LanguageRule = {
     },
     {
       regex: /\bdebugging\b/gi,
-      message:
-        "`debugging` should be translated to `depuração`.",
+      message: "`debugging` should be translated to `depuração`.",
       suggestion: "depuração",
     },
     {
       regex: /\bstatic\b/gi,
-      message:
-        "`static` should be translated to `estático`.",
+      message: "`static` should be translated to `estático`.",
       suggestion: "estático",
     },
     {
       regex: /\bdynamic\b/gi,
-      message:
-        "`dynamic` should be translated to `dinâmico`.",
+      message: "`dynamic` should be translated to `dinâmico`.",
       suggestion: "dinâmico",
     },
     {
       regex: /\bstylesheet\b/gi,
-      message:
-        "`stylesheet` should be translated to `folha de estilos`.",
+      message: "`stylesheet` should be translated to `folha de estilos`.",
       suggestion: "folha de estilos",
     },
     {
       regex: /\baccessibility\b/gi,
-      message:
-        "`accessibility` should be translated to `acessibilidade`.",
+      message: "`accessibility` should be translated to `acessibilidade`.",
       suggestion: "acessibilidade",
     },
     {
       regex: /\bintegrations?\b/gi,
-      message:
-        "`integration` should be translated to `integração`.",
+      message: "`integration` should be translated to `integração`.",
       suggestion: "integração",
     },
     {
       regex: /\bcomponents?\b/gi,
-      message:
-        "`component` should be translated to `componente`.",
+      message: "`component` should be translated to `componente`.",
       suggestion: "componente",
     },
     {

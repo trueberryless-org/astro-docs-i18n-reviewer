@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const arRules: LanguageRule = {
   locale: "ar",
@@ -6,11 +6,6 @@ export const arRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/ar/`.",
-    },
     {
       regex: /:::[\u0600-\u06FF]/g,
       message:
@@ -20,170 +15,142 @@ export const arRules: LanguageRule = {
     // ── Terms that MUST be translated ────────────────────────────────────────
     {
       regex: /\bframework\b/gi,
-      message:
-        "`framework` should be translated to `إطار عمل`.",
+      message: "`framework` should be translated to `إطار عمل`.",
       suggestion: "إطار عمل",
     },
     {
       regex: /\bcomponents?\b/gi,
-      message:
-        "`component` should be translated to `مكوّن`.",
+      message: "`component` should be translated to `مكوّن`.",
       suggestion: "مكوّن",
     },
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `جزر أسترو`.",
+      message: "`Astro Islands` should be translated to `جزر أسترو`.",
       suggestion: "جزر أسترو",
     },
     {
       regex: /\blayout\b/gi,
-      message:
-        "`layout` should be translated to `نسق`.",
+      message: "`layout` should be translated to `نسق`.",
       suggestion: "نسق",
     },
     {
       regex: /\btemplate\b/gi,
-      message:
-        "`template` should be translated to `قالب`.",
+      message: "`template` should be translated to `قالب`.",
       suggestion: "قالب",
     },
     {
       regex: /\bversion\b/gi,
-      message:
-        "`version` should be translated to `إصدار`.",
+      message: "`version` should be translated to `إصدار`.",
       suggestion: "إصدار",
     },
     {
       regex: /\bfrontend\b/gi,
-      message:
-        "`frontend` should be translated to `واجهة أمامية`.",
+      message: "`frontend` should be translated to `واجهة أمامية`.",
       suggestion: "واجهة أمامية",
     },
     {
       regex: /\bbackend\b/gi,
-      message:
-        "`backend` should be translated to `واجهة خلفية`.",
+      message: "`backend` should be translated to `واجهة خلفية`.",
       suggestion: "واجهة خلفية",
     },
     {
       regex: /\beditor\b/gi,
-      message:
-        "`editor` should be translated to `محرر`.",
+      message: "`editor` should be translated to `محرر`.",
       suggestion: "محرر",
     },
     {
       regex: /\bupgrade\b/gi,
-      message:
-        "`upgrade` should be translated to `ترقية`.",
+      message: "`upgrade` should be translated to `ترقية`.",
       suggestion: "ترقية",
     },
     {
       regex: /\bmigrate?\b/gi,
-      message:
-        "`migrate` should be translated to `تحويل`.",
+      message: "`migrate` should be translated to `تحويل`.",
       suggestion: "تحويل",
     },
     {
       regex: /\bintegrations?\b/gi,
-      message:
-        "`integration` should be translated to `تكامل`.",
+      message: "`integration` should be translated to `تكامل`.",
       suggestion: "تكامل",
     },
     {
       regex: /\bdeploy(ment)?\b/gi,
-      message:
-        "`deploy` / `deployment` should be translated to `نشر`.",
+      message: "`deploy` / `deployment` should be translated to `نشر`.",
       suggestion: "نشر",
     },
     {
       regex: /\bstatic\b/gi,
-      message:
-        "`static` should be translated to `ثابت`.",
+      message: "`static` should be translated to `ثابت`.",
       suggestion: "ثابت",
     },
     {
       regex: /\bdynamic\b/gi,
-      message:
-        "`dynamic` should be translated to `ديناميكي`.",
+      message: "`dynamic` should be translated to `ديناميكي`.",
       suggestion: "ديناميكي",
     },
     {
       regex: /\brouting\b/gi,
-      message:
-        "`routing` should be translated to `توجيه`.",
+      message: "`routing` should be translated to `توجيه`.",
       suggestion: "توجيه",
     },
     {
       regex: /\brendering\b/gi,
-      message:
-        "`rendering` should be translated to `تصيير`.",
+      message: "`rendering` should be translated to `تصيير`.",
       suggestion: "تصيير",
     },
     {
       regex: /\bscript\b/gi,
-      message:
-        "`script` should be translated to `نص برمجي`.",
+      message: "`script` should be translated to `نص برمجي`.",
       suggestion: "نص برمجي",
     },
     {
       regex: /\bimport\b/gi,
-      message:
-        "`import` should be translated to `إضافة` or `استيراد`.",
+      message: "`import` should be translated to `إضافة` or `استيراد`.",
       suggestion: "استيراد",
     },
     {
       regex: /\bexport\b/gi,
-      message:
-        "`export` should be translated to `تصدير`.",
+      message: "`export` should be translated to `تصدير`.",
       suggestion: "تصدير",
     },
     {
       regex: /\bendpoints?\b/gi,
-      message:
-        "`endpoints` should be translated to `نقاط طرفية`.",
+      message: "`endpoints` should be translated to `نقاط طرفية`.",
       suggestion: "نقاط طرفية",
     },
     {
       regex: /\bview transitions\b/gi,
-      message:
-        "`view transitions` should be translated to `انتقال المشهد`.",
+      message: "`view transitions` should be translated to `انتقال المشهد`.",
       suggestion: "انتقال المشهد",
     },
     {
       regex: /\brepository\b/gi,
-      message:
-        "`repository` should be translated to `مستودع`.",
+      message: "`repository` should be translated to `مستودع`.",
       suggestion: "مستودع",
     },
     {
       regex: /\badapters?\b/gi,
-      message:
-        "`adapter` should be translated to `موائمة`.",
+      message: "`adapter` should be translated to `موائمة`.",
       suggestion: "موائمة",
     },
     {
       regex: /\bdirectives?\b/gi,
-      message:
-        "`directive` should be translated to `موَجِّه`.",
+      message: "`directive` should be translated to `موَجِّه`.",
       suggestion: "موَجِّه",
     },
     {
       regex: /\bbundles?\b/gi,
-      message:
-        "`bundle` should be translated to `رزمة`.",
+      message: "`bundle` should be translated to `رزمة`.",
       suggestion: "رزمة",
     },
     {
       regex: /\bpackages?\b/gi,
-      message:
-        "`package` should be translated to `حزمة`.",
+      message: "`package` should be translated to `حزمة`.",
       suggestion: "حزمة",
     },
     {
       regex: /\bconfiguration\b/gi,
-      message:
-        "`configuration` should be translated to `إعدادات`.",
+      message: "`configuration` should be translated to `إعدادات`.",
       suggestion: "إعدادات",
     },
     {

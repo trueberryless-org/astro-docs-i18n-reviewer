@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const jaRules: LanguageRule = {
   locale: "ja",
@@ -6,11 +6,6 @@ export const jaRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/%E6%97%A5%E6%9C%AC%E8%AA%9E.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/ja/`.",
-    },
     {
       regex: /:::(?:ノート|ヒント|注意|警告|危険)\b/g,
       message:
@@ -46,8 +41,7 @@ export const jaRules: LanguageRule = {
     },
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `Astroアイランド`.",
+      message: "`Astro Islands` should be translated to `Astroアイランド`.",
       suggestion: "Astroアイランド",
     },
     {
@@ -58,8 +52,7 @@ export const jaRules: LanguageRule = {
     },
     {
       regex: /\bdependency\b/gi,
-      message:
-        "`dependency` should be translated to `依存関係`.",
+      message: "`dependency` should be translated to `依存関係`.",
       suggestion: "依存関係",
     },
     {
@@ -70,8 +63,7 @@ export const jaRules: LanguageRule = {
     },
     {
       regex: /\badapter\b/gi,
-      message:
-        "`adapter` should be translated to `アダプター`.",
+      message: "`adapter` should be translated to `アダプター`.",
       suggestion: "アダプター",
     },
     {
@@ -100,26 +92,22 @@ export const jaRules: LanguageRule = {
     },
     {
       regex: /\bdeployment\b/gi,
-      message:
-        "`deployment` should be translated to `デプロイ`.",
+      message: "`deployment` should be translated to `デプロイ`.",
       suggestion: "デプロイ",
     },
     {
       regex: /\baccessibility\b/gi,
-      message:
-        "`accessibility` should be translated to `アクセシビリティ`.",
+      message: "`accessibility` should be translated to `アクセシビリティ`.",
       suggestion: "アクセシビリティ",
     },
     {
       regex: /\bendpoints?\b/gi,
-      message:
-        "`endpoint` should be translated to `エンドポイント`.",
+      message: "`endpoint` should be translated to `エンドポイント`.",
       suggestion: "エンドポイント",
     },
     {
       regex: /\bmiddleware\b/gi,
-      message:
-        "`middleware` should be translated to `ミドルウェア`.",
+      message: "`middleware` should be translated to `ミドルウェア`.",
       suggestion: "ミドルウェア",
     },
 

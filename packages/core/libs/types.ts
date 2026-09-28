@@ -1,48 +1,42 @@
 export interface ReviewOptions {
-  prUrlOrNumber: string;
   githubToken: string;
+  prUrlOrNumber: string;
 }
 
-export interface PRDetails {
+export interface PullRequestDetails {
+  number: number;
   owner: string;
   repo: string;
-  number: number;
 }
 
-export interface InlineComment {
-  path: string;
-  line: number;
+export interface ReviewComment {
   body: string;
+  line: number;
+  path: string;
 }
 
 export interface FileCheckResult {
+  comments: ReviewComment[];
   filename: string;
-  status: "passed" | "failed";
-  comments: InlineComment[];
+  guideUrl?: string;
+  status: "failed" | "passed";
 }
 
 export interface TranslationReport {
-  prNumber: number;
   author: string;
-  reviewBody: string;
-  inlineComments: InlineComment[];
   fileReports: FileCheckResult[];
+  prNumber: number;
   unsupportedLocales: string[];
 }
 
 export interface RulePattern {
-  regex: RegExp;
   message: string;
+  regex: RegExp;
   suggestion?: string;
 }
 
 export interface LanguageRule {
-  locale: string;
   guideUrl?: string;
+  locale: string;
   patterns: RulePattern[];
-}
-
-export interface RepoConfig {
-  extractLocale: (path: string) => string;
-  toOriginalPath: (path: string) => string;
 }

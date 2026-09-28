@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const deRules: LanguageRule = {
   locale: "de",
@@ -6,11 +6,6 @@ export const deRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/deutsch.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/de/`.",
-    },
     {
       regex: /:::(hinweis|tipp|warnung|achtung|gefahr)\b/gi,
       message:
@@ -50,38 +45,32 @@ export const deRules: LanguageRule = {
     // ── Wrong or missing hyphens (guide: häufige Fehler) ─────────────────────
     {
       regex: /\bAstro Projekt\b/g,
-      message:
-        "Missing hyphen — write `Astro-Projekt`.",
+      message: "Missing hyphen — write `Astro-Projekt`.",
       suggestion: "Astro-Projekt",
     },
     {
       regex: /\bAstro Komponente\b/g,
-      message:
-        "Missing hyphen — write `Astro-Komponente`.",
+      message: "Missing hyphen — write `Astro-Komponente`.",
       suggestion: "Astro-Komponente",
     },
     {
       regex: /\bAstro Blog\b/g,
-      message:
-        "Missing hyphen — write `Astro-Blog`.",
+      message: "Missing hyphen — write `Astro-Blog`.",
       suggestion: "Astro-Blog",
     },
     {
       regex: /\bnpm Paket\b/gi,
-      message:
-        "Missing hyphen — write `npm-Paket`.",
+      message: "Missing hyphen — write `npm-Paket`.",
       suggestion: "npm-Paket",
     },
     {
       regex: /\bReadme Datei\b/gi,
-      message:
-        "Missing hyphen — write `Readme-Datei`.",
+      message: "Missing hyphen — write `Readme-Datei`.",
       suggestion: "Readme-Datei",
     },
     {
       regex: /\bE-Mail Adresse\b/g,
-      message:
-        "Missing hyphen — write `E-Mail-Adresse`.",
+      message: "Missing hyphen — write `E-Mail-Adresse`.",
       suggestion: "E-Mail-Adresse",
     },
     {
@@ -99,14 +88,12 @@ export const deRules: LanguageRule = {
     },
     {
       regex: /\bdeployen\b/gi,
-      message:
-        "`deployen` should be `veröffentlichen`.",
+      message: "`deployen` should be `veröffentlichen`.",
       suggestion: "veröffentlichen",
     },
     {
       regex: /\bausliefern\b/gi,
-      message:
-        "Avoid `ausliefern` (ambiguous) — prefer `veröffentlichen`.",
+      message: "Avoid `ausliefern` (ambiguous) — prefer `veröffentlichen`.",
       suggestion: "veröffentlichen",
     },
     {
@@ -128,8 +115,7 @@ export const deRules: LanguageRule = {
     },
     {
       regex: /\bmit Hilfe\b/g,
-      message:
-        "`mit Hilfe` should be one word — `mithilfe` (per Duden).",
+      message: "`mit Hilfe` should be one word — `mithilfe` (per Duden).",
       suggestion: "mithilfe",
     },
 

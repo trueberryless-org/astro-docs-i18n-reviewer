@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const frRules: LanguageRule = {
   locale: "fr",
@@ -7,12 +7,8 @@ export const frRules: LanguageRule = {
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
     {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/fr/`.",
-    },
-    {
-      regex: /:::(remarque|astuce|attention|avertissement|avis|conseil|danger|note-fr)\b/gi,
+      regex:
+        /:::(remarque|astuce|attention|avertissement|avis|conseil|danger|note-fr)\b/gi,
       message:
         "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
     },
@@ -21,7 +17,7 @@ export const frRules: LanguageRule = {
     {
       regex: /"[^"\n]+"/g,
       message:
-        "Use French guillemets `«\u00a0…\u00a0»` instead of straight double quotes `\"…\"`.",
+        'Use French guillemets `«\u00a0…\u00a0»` instead of straight double quotes `"…"`.',
     },
 
     // ── Terms that MUST be translated ────────────────────────────────────────
@@ -39,50 +35,42 @@ export const frRules: LanguageRule = {
     },
     {
       regex: /\bclient-side\b/gi,
-      message:
-        "`client-side` should be translated to `côté client`.",
+      message: "`client-side` should be translated to `côté client`.",
       suggestion: "côté client",
     },
     {
       regex: /\bserver-side\b/gi,
-      message:
-        "`server-side` should be translated to `côté serveur`.",
+      message: "`server-side` should be translated to `côté serveur`.",
       suggestion: "côté serveur",
     },
     {
       regex: /\bendpoints?\b/gi,
-      message:
-        "`endpoint` should be translated to `point de terminaison`.",
+      message: "`endpoint` should be translated to `point de terminaison`.",
       suggestion: "point de terminaison",
     },
     {
       regex: /\blayout\b/gi,
-      message:
-        "`layout` should be translated to `mise en page`.",
+      message: "`layout` should be translated to `mise en page`.",
       suggestion: "mise en page",
     },
     {
       regex: /\bplugins?\b/gi,
-      message:
-        "`plugin` should be translated to `module d'extension`.",
+      message: "`plugin` should be translated to `module d'extension`.",
       suggestion: "module d'extension",
     },
     {
       regex: /\bpresets?\b/gi,
-      message:
-        "`preset` should be translated to `préréglage`.",
+      message: "`preset` should be translated to `préréglage`.",
       suggestion: "préréglage",
     },
     {
       regex: /\brepository\b/gi,
-      message:
-        "`repository` should be translated to `dépôt`.",
+      message: "`repository` should be translated to `dépôt`.",
       suggestion: "dépôt",
     },
     {
       regex: /\brouting\b/gi,
-      message:
-        "`routing` should be translated to `routage`.",
+      message: "`routing` should be translated to `routage`.",
       suggestion: "routage",
     },
     {
@@ -105,20 +93,17 @@ export const frRules: LanguageRule = {
     },
     {
       regex: /\bpackages?\b/gi,
-      message:
-        "`package` should be translated to `paquet`.",
+      message: "`package` should be translated to `paquet`.",
       suggestion: "paquet",
     },
     {
       regex: /\bupdate\b/gi,
-      message:
-        "`update` should be translated to `mise à jour`.",
+      message: "`update` should be translated to `mise à jour`.",
       suggestion: "mise à jour",
     },
     {
       regex: /\bupgrade\b/gi,
-      message:
-        "`upgrade` should be translated to `mise à niveau`.",
+      message: "`upgrade` should be translated to `mise à niveau`.",
       suggestion: "mise à niveau",
     },
     {
@@ -168,8 +153,7 @@ export const frRules: LanguageRule = {
     },
     {
       regex: /\bILC\b/g,
-      message:
-        "`ILC` is not used — keep `CLI` in the French docs.",
+      message: "`ILC` is not used — keep `CLI` in the French docs.",
       suggestion: "CLI",
     },
     {

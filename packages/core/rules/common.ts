@@ -1,4 +1,4 @@
-import type { RulePattern } from "../types.js";
+import type { RulePattern } from "../libs/types";
 
 /**
  * Rules that apply to every translation, regardless of locale.
@@ -33,7 +33,8 @@ export const commonPatterns: RulePattern[] = [
   },
   {
     regex: /\bNpm\b/g,
-    message: "Wrong capitalisation — write `npm` (always lowercase, even at the start of a sentence — this is npm's official brand style).",
+    message:
+      "Wrong capitalisation — write `npm` (always lowercase, even at the start of a sentence — this is npm's official brand style).",
     suggestion: "npm",
   },
   {

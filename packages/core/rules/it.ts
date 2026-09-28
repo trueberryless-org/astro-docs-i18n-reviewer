@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const itRules: LanguageRule = {
   locale: "it",
@@ -7,12 +7,8 @@ export const itRules: LanguageRule = {
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
     {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/it/`.",
-    },
-    {
-      regex: /:::(nota|suggerimento|attenzione|avvertimento|avvertenza|pericolo|consiglio)\b/gi,
+      regex:
+        /:::(nota|suggerimento|attenzione|avvertimento|avvertenza|pericolo|consiglio)\b/gi,
       message:
         "Don't translate aside type names — keep `:::note`, `:::tip`, `:::caution`, `:::danger` in English.",
     },
@@ -32,14 +28,12 @@ export const itRules: LanguageRule = {
     },
     {
       regex: /\bserver-side\b/gi,
-      message:
-        "`server-side` should be translated to `lato server`.",
+      message: "`server-side` should be translated to `lato server`.",
       suggestion: "lato server",
     },
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `Isole Astro`.",
+      message: "`Astro Islands` should be translated to `Isole Astro`.",
       suggestion: "Isole Astro",
     },
     {
@@ -57,19 +51,17 @@ export const itRules: LanguageRule = {
     {
       regex: /\bfrontmatter\b/gi,
       message:
-        "`frontmatter` should be translated to `avantesto` in Italian (or explained as \"blocco iniziale delimitato da `---`\").",
+        '`frontmatter` should be translated to `avantesto` in Italian (or explained as "blocco iniziale delimitato da `---`").',
       suggestion: "avantesto",
     },
     {
       regex: /\bcomponents?\b/gi,
-      message:
-        "`component` should be translated to `componente`.",
+      message: "`component` should be translated to `componente`.",
       suggestion: "componente",
     },
     {
       regex: /\bintegrations?\b/gi,
-      message:
-        "`integration` should be translated to `integrazione`.",
+      message: "`integration` should be translated to `integrazione`.",
       suggestion: "integrazione",
     },
     {
@@ -91,14 +83,12 @@ export const itRules: LanguageRule = {
     },
     {
       regex: /\bbundles?\b/gi,
-      message:
-        "`bundle` should be translated to `pacchetto` in Italian.",
+      message: "`bundle` should be translated to `pacchetto` in Italian.",
       suggestion: "pacchetto",
     },
     {
       regex: /\bpackages?\b/gi,
-      message:
-        "`package` should be translated to `pacchetto`.",
+      message: "`package` should be translated to `pacchetto`.",
       suggestion: "pacchetto",
     },
     {
@@ -108,26 +98,22 @@ export const itRules: LanguageRule = {
     },
     {
       regex: /\baccessibility\b/gi,
-      message:
-        "`accessibility` should be translated to `accessibilità`.",
+      message: "`accessibility` should be translated to `accessibilità`.",
       suggestion: "accessibilità",
     },
     {
       regex: /\bdirectives?\b/gi,
-      message:
-        "`directive` should be translated to `direttiva`.",
+      message: "`directive` should be translated to `direttiva`.",
       suggestion: "direttiva",
     },
     {
       regex: /\badapters?\b/gi,
-      message:
-        "`adapter` should be translated to `adattatore`.",
+      message: "`adapter` should be translated to `adattatore`.",
       suggestion: "adattatore",
     },
     {
       regex: /\bdeprecated?\b/gi,
-      message:
-        "`deprecated` should be translated to `deprecato`.",
+      message: "`deprecated` should be translated to `deprecato`.",
       suggestion: "deprecato",
     },
 

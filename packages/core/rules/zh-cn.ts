@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const zhCnRules: LanguageRule = {
   locale: "zh-cn",
@@ -6,11 +6,6 @@ export const zhCnRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/zh-cn/`.",
-    },
     {
       regex: /:::(?:注|提示|注意|警告|危险)\b/g,
       message:
@@ -20,86 +15,72 @@ export const zhCnRules: LanguageRule = {
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\badapters?\b/gi,
-      message:
-        "`adapter` should be translated to `适配器`.",
+      message: "`adapter` should be translated to `适配器`.",
       suggestion: "适配器",
     },
     {
       regex: /\bhydration\b/gi,
-      message:
-        "`hydration` should be translated to `激活`.",
+      message: "`hydration` should be translated to `激活`.",
       suggestion: "激活",
     },
     {
       regex: /\bendpoints?\b/gi,
-      message:
-        "`endpoint` should be translated to `端点`.",
+      message: "`endpoint` should be translated to `端点`.",
       suggestion: "端点",
     },
     {
       regex: /\bcomponents?\b/gi,
-      message:
-        "`component` should be translated to `组件`.",
+      message: "`component` should be translated to `组件`.",
       suggestion: "组件",
     },
     {
       regex: /\bframework\b/gi,
-      message:
-        "`framework` should be translated to `框架`.",
+      message: "`framework` should be translated to `框架`.",
       suggestion: "框架",
     },
     {
       regex: /\bintegrations?\b/gi,
-      message:
-        "`integration` should be translated to `集成`.",
+      message: "`integration` should be translated to `集成`.",
       suggestion: "集成",
     },
     {
       regex: /\bmodule\b/gi,
-      message:
-        "`module` should be translated to `模块`.",
+      message: "`module` should be translated to `模块`.",
       suggestion: "模块",
     },
     {
       regex: /\bmigration\b/gi,
-      message:
-        "`migration` should be translated to `迁移`.",
+      message: "`migration` should be translated to `迁移`.",
       suggestion: "迁移",
     },
     {
       regex: /\baccessibility\b/gi,
-      message:
-        "`accessibility` should be translated to `无障碍`.",
+      message: "`accessibility` should be translated to `无障碍`.",
       suggestion: "无障碍",
     },
     {
       regex: /\barchitecture\b/gi,
-      message:
-        "`architecture` should be translated to `架构`.",
+      message: "`architecture` should be translated to `架构`.",
       suggestion: "架构",
     },
     {
       regex: /\bserver-side rendering\b/gi,
-      message:
-        "`server-side rendering` should be translated to `服务端渲染`.",
+      message: "`server-side rendering` should be translated to `服务端渲染`.",
       suggestion: "服务端渲染",
     },
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `Astro 群岛`.",
+      message: "`Astro Islands` should be translated to `Astro 群岛`.",
       suggestion: "Astro 群岛",
     },
     {
       regex: /\blibrar(?:y|ies)\b/gi,
-      message:
-        "`library` should be translated to `库`.",
+      message: "`library` should be translated to `库`.",
       suggestion: "库",
     },
     {
       regex: /\bpackages?\b/gi,
-      message:
-        "`package` should be translated to `包`.",
+      message: "`package` should be translated to `包`.",
       suggestion: "包",
     },
     {
@@ -110,14 +91,12 @@ export const zhCnRules: LanguageRule = {
     },
     {
       regex: /\brouting\b/gi,
-      message:
-        "`routing` should be translated to `路由`.",
+      message: "`routing` should be translated to `路由`.",
       suggestion: "路由",
     },
     {
       regex: /\bdeployment\b/gi,
-      message:
-        "`deployment` should be translated to `部署`.",
+      message: "`deployment` should be translated to `部署`.",
       suggestion: "部署",
     },
 
@@ -141,8 +120,7 @@ export const zhCnRules: LanguageRule = {
     },
     {
       regex: /\bslug\b/gi,
-      message:
-        "`slug` stays untranslated.",
+      message: "`slug` stays untranslated.",
     },
   ],
 };

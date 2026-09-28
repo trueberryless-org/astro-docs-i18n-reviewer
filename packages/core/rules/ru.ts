@@ -1,4 +1,4 @@
-import type { LanguageRule } from "../types.js";
+import type { LanguageRule } from "../libs/types";
 
 export const ruRules: LanguageRule = {
   locale: "ru",
@@ -6,11 +6,6 @@ export const ruRules: LanguageRule = {
     "https://github.com/withastro/docs/blob/main/i18n-guides/russian.md",
   patterns: [
     // ── Structure ────────────────────────────────────────────────────────────
-    {
-      regex: /\[.*?\]\(\/en\/.*?\)/g,
-      message:
-        "Internal link to `/en/` found — please update it to `/ru/`.",
-    },
     {
       regex: /:::[а-яёА-ЯЁ][а-яёА-ЯЁ]+/g,
       message:
@@ -20,44 +15,37 @@ export const ruRules: LanguageRule = {
     // ── Glossary terms ────────────────────────────────────────────────────────
     {
       regex: /\bAstro Islands\b/gi,
-      message:
-        "`Astro Islands` should be translated to `Островки Astro`.",
+      message: "`Astro Islands` should be translated to `Островки Astro`.",
       suggestion: "Островки Astro",
     },
     {
       regex: /\brouting\b/gi,
-      message:
-        "`routing` should be translated to `маршрутизация`.",
+      message: "`routing` should be translated to `маршрутизация`.",
       suggestion: "маршрутизация",
     },
     {
       regex: /\bmigration\b/gi,
-      message:
-        "`migration` should be translated to `переход`.",
+      message: "`migration` should be translated to `переход`.",
       suggestion: "переход",
     },
     {
       regex: /\bmiddleware\b/gi,
-      message:
-        "`middleware` should be translated to `мидлвар`.",
+      message: "`middleware` should be translated to `мидлвар`.",
       suggestion: "мидлвар",
     },
     {
       regex: /\bfrontmatter\b/gi,
-      message:
-        "`frontmatter` should be translated to `метаданные`.",
+      message: "`frontmatter` should be translated to `метаданные`.",
       suggestion: "метаданные",
     },
     {
       regex: /\bendpoints?\b/gi,
-      message:
-        "`endpoint` should be translated to `эндпойнт`.",
+      message: "`endpoint` should be translated to `эндпойнт`.",
       suggestion: "эндпойнт",
     },
     {
       regex: /\breference\b/gi,
-      message:
-        "`reference` should be translated to `справочник`.",
+      message: "`reference` should be translated to `справочник`.",
       suggestion: "справочник",
     },
     {
@@ -74,44 +62,37 @@ export const ruRules: LanguageRule = {
     },
     {
       regex: /\bcomponents?\b/gi,
-      message:
-        "`component` should be translated to `компонент`.",
+      message: "`component` should be translated to `компонент`.",
       suggestion: "компонент",
     },
     {
       regex: /\bintegrations?\b/gi,
-      message:
-        "`integration` should be translated to `интеграция`.",
+      message: "`integration` should be translated to `интеграция`.",
       suggestion: "интеграция",
     },
     {
       regex: /\badapters?\b/gi,
-      message:
-        "`adapter` should be translated to `адаптер`.",
+      message: "`adapter` should be translated to `адаптер`.",
       suggestion: "адаптер",
     },
     {
       regex: /\bdirectives?\b/gi,
-      message:
-        "`directive` should be translated to `директива`.",
+      message: "`directive` should be translated to `директива`.",
       suggestion: "директива",
     },
     {
       regex: /\baccessibility\b/gi,
-      message:
-        "`accessibility` should be translated to `доступность`.",
+      message: "`accessibility` should be translated to `доступность`.",
       suggestion: "доступность",
     },
     {
       regex: /\bdeployment\b/gi,
-      message:
-        "`deployment` should be translated to `развёртывание`.",
+      message: "`deployment` should be translated to `развёртывание`.",
       suggestion: "развёртывание",
     },
     {
       regex: /\bdeprecated?\b/gi,
-      message:
-        "`deprecated` should be translated to `устаревший`.",
+      message: "`deprecated` should be translated to `устаревший`.",
       suggestion: "устаревший",
     },
 
@@ -119,7 +100,7 @@ export const ruRules: LanguageRule = {
     {
       regex: /"[^"\n]+"/g,
       message:
-        "Use Russian typographic quotes `«…»` instead of straight double quotes `\"…\"`.",
+        'Use Russian typographic quotes `«…»` instead of straight double quotes `"…"`.',
     },
   ],
 };
