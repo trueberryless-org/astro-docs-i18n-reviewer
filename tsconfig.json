@@ -1,10 +1,5 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-  },
+  "extends": "astro/tsconfigs/strictest",
+  "include": ["apps/web/.astro/types.d.ts", "**/*"],
+  "exclude": ["**/dist"]
 }

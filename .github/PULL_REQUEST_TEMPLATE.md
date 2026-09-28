@@ -17,10 +17,10 @@
 
 ## Checklist
 
-- [ ] I have read [CONTRIBUTING.md](../CONTRIBUTING.md)
+- [ ] I have read [CONTRIBUTING.md](https://github.com/trueberryless-org/astro-docs-i18n-reviewer/blob/main/CONTRIBUTING.md)
 - [ ] My branch is up to date with `main`
-- [ ] The core package builds without errors (`pnpm --filter @astro-docs-i18n-reviewer/core build`)
-- [ ] The web app builds without errors (`pnpm --filter @astro-docs-i18n-reviewer/web build`)
+- [ ] `pnpm check` and `pnpm test` pass
+- [ ] The web app builds without errors (`pnpm build`)
 - [ ] I have tested my changes against at least one real Astro Docs translation PR
 - [ ] New language rules avoid false positives on code blocks and MDX import lines
 
