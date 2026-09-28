@@ -35,6 +35,12 @@ describe("getHeadings", () => {
     expect(getHeadings(content)).toEqual([{ level: 2, line: 1 }]);
   });
 
+  test("does not treat inline code at the start of a line as a fence", () => {
+    const content = ["```foo``` is inline code", "", "## Section"].join("\n");
+
+    expect(getHeadings(content)).toEqual([{ level: 2, line: 3 }]);
+  });
+
   test("ignores comments after a nested fence of a shorter length", () => {
     const content = [
       "````md",
